@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Token Claim Page</title>
+  <script src="https://cdn.jsdelivr.net/npm/@thirdweb-dev/sdk@5.16.3/dist/browser/index.min.js"></script>
+  <style>
+    body { font-family: Arial; padding: 30px; text-align: center; }
+    button { padding: 10px 20px; font-size: 16px; margin: 5px; cursor: pointer; }
+    select { padding: 5px; font-size: 16px; margin-bottom: 20px; }
+    #status { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<h1 id="title">Token Claim Page</h1>
+
+<!-- 언어 선택 -->
+<select id="languageSelect">
+  <option value="en">English</option>
+  <option value="ko">한국어</option>
+  <option value="de">Deutsch</option>
+</select>
+
+<p id="description">Scan the QR code, connect your wallet, and claim your tokens.</p>
+
+<button id="connectWalletBtn">Connect Wallet</button>
+<button id="claimBtn" disabled>Claim Token</button>
+
+<div id="status"></div>
+
+<script>
+const contractAddress = "0xF4d239eF86E78F4d24d2AcDfC4bbF7D0CF7E6Bd1"; // 네 Contract 주소
+let sdk, contract, signer;
+
+const connectWalletBtn = document.getElementById("connectWalletBtn");
+const claimBtn = document.getElementById("claimBtn");
+const statusDiv = document.getElementById("status");
+const languageSelect = document.getElementById("languageSelect");
+const title = document.getElementById("title");
+const description = document.getElementById("description");
+
+// 다국어 텍스트
+const texts = {
+  en: {
+    title: "Token Claim Page",
+    description: "Scan the QR code, connect your wallet, and claim your tokens.",
+    connectBtn: "Connect Wallet",
+    claimBtn: "Claim Token",
+    walletSuccess: "Wallet connected!",
+    walletFail: "Wallet connection failed: ",
+    claimSuccess: "Claim successful! Tx: ",
+    claimFail: "Claim failed: ",
+    noWallet: "MetaMask or Base Wallet required."
+  },
+  ko: {
+    title: "토큰 클레임 페이지",
+    description: "QR 코드를 스캔하고 지갑을 연결한 후 토큰을 클레임하세요.",
+    connectBtn: "지갑 연결",
+    claimBtn: "토큰 클레임",
+    walletSuccess: "지갑 연결 완료!",
+    walletFail: "지갑 연결 실패: ",
+    claimSuccess: "클레임 성공! 트랜잭션: ",
+    claimFail: "클레임 실패: ",
+    noWallet: "MetaMask 또는 Base Wallet이 필요합니다."
+  },
+  de: {
+    title: "Token Anspruch Seite",
+    description: "Scannen Sie den QR-Code, verbinden Sie Ihre Wallet und beanspruchen Sie Ihre Token.",
+    connectBtn: "Wallet verbinden",
+    claimBtn: "Token beanspruchen",
+    walletSuccess: "Wallet verbunden!",
+    walletFail: "Wallet-Verbindung fehlgeschlagen: ",
+    claimSuccess: "Anspruch erfolgreich! Tx: ",
+    claimFail: "Anspruch
